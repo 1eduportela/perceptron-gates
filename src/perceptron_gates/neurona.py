@@ -4,6 +4,13 @@ from perceptron_gates.datos import obtener_datos
 def sigmoid(z):
     return 1/(1+np.exp(-z))
 
+def perdida(p, y):
+    eps = 1e-12
+    p = np.clip(p, eps, 1 - eps)
+    return np.mean(-(y*np.log(p) + (1 - y)*np.log(1 - p)))
+    
+
+
 class Neurona:
     def __init__(self,n_entradas,semilla=42):
         rng=np.random.default_rng(semilla)
@@ -26,3 +33,4 @@ if __name__ == "__main__":
     print(f"forward:  {np.round(probabilidades, 4)}")
     print(f"predecir: {predicciones}")
     print(f"y:        {y}")
+    print(f"pérdida:  {perdida(probabilidades, y):.4f}")
