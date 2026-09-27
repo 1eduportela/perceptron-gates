@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+src/perceptron_gates/__init__.py
+src/perceptron_gates/datos.py
+src/perceptron_gates/neurona.py
+src/perceptron_gates.egg-info/PKG-INFO
+src/perceptron_gates.egg-info/SOURCES.txt
+src/perceptron_gates.egg-info/dependency_links.txt
+src/perceptron_gates.egg-info/requires.txt
+src/perceptron_gates.egg-info/top_level.txt
