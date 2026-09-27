@@ -9,8 +9,6 @@ def perdida(p, y):
     p = np.clip(p, eps, 1 - eps)
     return np.mean(-(y*np.log(p) + (1 - y)*np.log(1 - p)))
     
-
-
 class Neurona:
     def __init__(self,n_entradas,semilla=42):
         rng=np.random.default_rng(semilla)
@@ -25,6 +23,15 @@ class Neurona:
         p=self.forward(X)
         return (p>=umbral).astype(int)
 
+    def gradientes(self,X,y):
+        p=self.forward(X)
+        er=p-y
+        dw=X.T @ er / len(y)
+        dm=np.mean(er)
+        return dw,dm
+
+
+
 if __name__ == "__main__":
     neurona=Neurona(2)
     X,y=obtener_datos("or")
@@ -34,3 +41,6 @@ if __name__ == "__main__":
     print(f"predecir: {predicciones}")
     print(f"y:        {y}")
     print(f"pérdida:  {perdida(probabilidades, y):.4f}")
+    dw, db = neurona.gradientes(X, y)
+    print(f"dw:       {np.round(dw, 4)}")
+    print(f"db:       {db:.4f}")
