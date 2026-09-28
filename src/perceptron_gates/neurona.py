@@ -27,10 +27,20 @@ class Neurona:
         p=self.forward(X)
         er=p-y
         dw=X.T @ er / len(y)
-        dm=np.mean(er)
-        return dw,dm
+        db=np.mean(er)
+        return dw,db
 
-
+    def entrenar(self,X,y,epoca=1000,lr=1.0):
+        historial=[]
+        for epoca in range(epoca):
+            L=perdida(self.forward(X),y)
+            dw, db=self.gradientes(X,y)
+            self.w=self.w-lr*dw
+            self.b=self.b-lr*db
+            historial.append(L)
+            if epoca%100==0:
+                print(f"época {epoca:4d} | pérdida: {L:4f}")
+        return historial
 
 if __name__ == "__main__":
     neurona=Neurona(2)
@@ -44,3 +54,7 @@ if __name__ == "__main__":
     dw, db = neurona.gradientes(X, y)
     print(f"dw:       {np.round(dw, 4)}")
     print(f"db:       {db:.4f}")
+    historial = neurona.entrenar(X, y)
+
+    print(f"forward:  {np.round(neurona.forward(X), 4)}")
+    print(f"predecir: {neurona.predecir(X)}")
