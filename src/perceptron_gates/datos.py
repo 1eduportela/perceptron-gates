@@ -35,6 +35,9 @@ def obtener_datos(nombre):
 
     return X.copy(), puertas[clave].copy()
 
+def añadir_producto(X):
+    producto = X[:,0]*X[:,1]
+    return np.column_stack([X,producto])
 
 if __name__ == "__main__":
     for puerta in puertas:

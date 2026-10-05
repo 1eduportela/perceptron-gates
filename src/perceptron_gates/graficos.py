@@ -2,12 +2,17 @@ import numpy as np
 import matplotlib as mp
 mp.use("Agg")
 import matplotlib.pyplot as plt
+from perceptron_gates.datos import añadir_producto
 
 def graficar_frontera(neurona,X,y,titulo,ruta):
     """Dibuja la frontera de decisión de la neurona y la guarda en ruta."""
     valores = np.linspace(-0.5,1.5,200)
     xx,yy = np.meshgrid(valores,valores)
     puntos = np.column_stack([xx.ravel(),yy.ravel()])
+
+    if X.shape[1]==3:
+        puntos = añadir_producto(puntos)
+
     probs = neurona.forward(puntos)
     probs = probs.reshape(xx.shape)
     fig, ax = plt.subplots()
